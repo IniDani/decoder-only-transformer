@@ -24,7 +24,7 @@ Tujuannya adalah memahami alur **forward pass** model transformer, mulai dari em
 ## 🚀 Cara Menggunakan
 1. **Kloning repository ini**:
    ```bash
-   git clone <URL_REPO>
+   git clone https://github.com/IniDani/decoder-only-transformer.git
    cd decoder-only-transformer
 
 2. **Jalankan program utama**:
@@ -37,21 +37,39 @@ Tujuannya adalah memahami alur **forward pass** model transformer, mulai dari em
 - (opsional) Attention heatmap tersimpan sebagai file .png
 
 Contoh output:
-logits shape: (2, 10, 1000)
-probs shape : (2, 1000)
-attn blocks: 2
-attn[0] shape: (2, 8, 10, 10)
-Saved heatmap to attn_block0_head0.png
+    ```bash
+    logits shape: (2, 10, 1000)
+    probs shape : (2, 1000)
+    attn blocks: 2
+    attn[0] shape: (2, 8, 10, 10)
+    Saved heatmap to attn_block0_head0.png
 
 ---
 
 ## Hyperparameter
 1. **vocab_size**
+Jumlah token unik dalam kosakata. Ukuran output layer model.
+(Misal 1000 artinya model mengenali 1000 token unik.)
+
 2. **max_len**
+Panjang maksimum sequence/token yang bisa diproses.
+Dipakai untuk membangun positional encoding.
+
 3. **d_model**
+Dimensi embedding/token representation.
+Semakin besar → representasi lebih kaya, tapi komputasi lebih berat.
+
 4. **num_heads**
+Jumlah attention head di Multi-Head Attention.
+Masing-masing head memperhatikan konteks berbeda dalam sequence.
+
 5. **d_ff**
+Ukuran hidden layer di Feed Forward Network.
+Biasanya ≈ 4 × d_model.
+
 6. **num_layers**
+Jumlah stack Transformer block.
+Semakin banyak layer → model lebih dalam dan kompleks.
 
 ---
 
