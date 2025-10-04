@@ -4,6 +4,7 @@ from transformer import Transformer
 if __name__ == "__main__":
     np.random.seed(42)
 
+    # Parameter
     vocab_size = 1000
     max_len    = 64
     d_model    = 128
@@ -35,7 +36,7 @@ if __name__ == "__main__":
     # === (Opsional) Plot heatmap kalau matplotlib tersedia ===
     try:
         import matplotlib.pyplot as plt
-        plt.imshow(attn_list[0][0, 0], aspect='auto')
+        plt.imshow(attn_list[0][0, 0], aspect = 'auto')
         plt.title("Attention Heatmap (Block 0, Head 0, Sample 0)")
         plt.xlabel("Key positions")
         plt.ylabel("Query positions")
