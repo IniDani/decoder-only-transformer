@@ -21,10 +21,12 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
     return out, attn
 
 class MultiHeadAttention:
-    def __init__(self, d_model, num_heads):
+    def __init__(self, d_model, num_heads, rope = None):
         assert d_model % num_heads == 0, "d_model must be divisible by num_heads"
         self.d_model = d_model
         self.num_heads = num_heads
+        self.rope = rope
+        self.last_attn = None   # untuk visualisasi
 
         Dh = d_model
         s = 1/np.sqrt(Dh)
@@ -37,7 +39,7 @@ class MultiHeadAttention:
         self.bv = np.zeros((Dh,), dtype=np.float32)
         self.bo = np.zeros((Dh,), dtype=np.float32)
 
-    def __call__(self, x, mask=None):
+    def __call__(self, x, mask = None, positions = None):
         # x: (B, S, D)
         x = np.asarray(x)
         assert x.ndim == 3, f"Input MHA harus 3D (B,S,D), dapat {x.ndim}D"
@@ -50,6 +52,10 @@ class MultiHeadAttention:
         K = split_heads(K, self.num_heads)
         V = split_heads(V, self.num_heads)
 
+        if self.rope is not None:
+            Q = self.rope.apply(Q, positions)
+            K = self.rope.apply(K, positions)
+
         out, attn = scaled_dot_product_attention(Q, K, V, mask)  # (B,H,S,Dh)
         out = combine_heads(out)  # (B,S,D)
 
@@ -61,6 +67,9 @@ class MultiHeadAttention:
         B, S, D = out.shape
         if D != self.d_model:
             raise ValueError(f"D mismatch setelah combine_heads: {D} vs d_model {self.d_model}")
+
+        # Simpan attention untuk visualisasi
+        self.last_attn = attn   # (B,H,S,S)
 
         # Proyeksi akhir: (B,S,D) x (D,D) -> (B,S,D)
         out = np.einsum('bsd,dd->bsd', out, self.Wo) + self.bo[None, None, :]
