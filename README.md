@@ -1,9 +1,15 @@
+Nama  : Muhammad Rafli Ramadani
+
+NIM   : 22/497787/TK/54571
+
+---
+
 # Decoder-Only Transformer (NumPy Implementation)
 
 Proyek ini merupakan implementasi **Transformer Decoder-Only (GPT-style)** dari nol menggunakan **NumPy**, tanpa library deep learning seperti PyTorch atau TensorFlow.  
 Tujuannya adalah memahami alur **forward pass** model transformer, mulai dari embedding hingga menghasilkan distribusi probabilitas token berikutnya.
 
----
+
 
 ## 📌 Fitur Utama
 - Token Embedding
@@ -19,7 +25,7 @@ Tujuannya adalah memahami alur **forward pass** model transformer, mulai dari em
   - Weight Tying
   - Rotary Positional Embedding (RoPE)
 
----
+
 
 ## 🚀 Cara Menggunakan
 1. **Kloning repository ini**:
@@ -44,41 +50,41 @@ Contoh output:
     attn[0] shape: (2, 8, 10, 10)
     Saved heatmap to attn_block0_head0.png
 
----
+
 
 ## Hyperparameter
-1. **vocab_size**
+1. **vocab_size**:
 Jumlah token unik dalam kosakata. Ukuran output layer model.
 (Misal 1000 artinya model mengenali 1000 token unik.)
 
-2. **max_len**
+2. **max_len**:
 Panjang maksimum sequence/token yang bisa diproses.
 Dipakai untuk membangun positional encoding.
 
-3. **d_model**
+3. **d_model**:
 Dimensi embedding/token representation.
 Semakin besar → representasi lebih kaya, tapi komputasi lebih berat.
 
-4. **num_heads**
+4. **num_heads**:
 Jumlah attention head di Multi-Head Attention.
 Masing-masing head memperhatikan konteks berbeda dalam sequence.
 
-5. **d_ff**
+5. **d_ff**:
 Ukuran hidden layer di Feed Forward Network.
 Biasanya ≈ 4 × d_model.
 
-6. **num_layers**
+6. **num_layers**:
 Jumlah stack Transformer block.
 Semakin banyak layer → model lebih dalam dan kompleks.
 
----
+
 
 ## Dependensi
 - Python 3.9+
 - NumPy
 - Matplotlib (opsional untuk visualisasi)
 
----
+
 
 ## Catatan
 Implementasi ini belum dilatih pada dataset NLP nyata, sehingga distribusi probabilitas masih mendekati uniform. Tujuan utamanya adalah untuk memahami mekanisme internal Transformer dengan implementasi manual.
